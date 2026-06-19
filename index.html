@@ -10,19 +10,23 @@
            color: #212121; line-height: 1.7; }
     h1 { color: #1565C0; }
     h2 { color: #1A237E; margin-top: 2em; }
+    h3 { color: #37474F; }
     a  { color: #1565C0; }
     hr { border: none; border-top: 1px solid #e0e0e0; margin: 2em 0; }
     .updated { color: #757575; font-size: 0.9em; }
+    table { width:100%; border-collapse:collapse; }
+    th { text-align:left; padding:8px; border:1px solid #e0e0e0; background:#f5f5f5; }
+    td { padding:8px; border:1px solid #e0e0e0; }
   </style>
 </head>
 <body>
 
 <h1>Privacy Policy</h1>
-<p class="updated">Last updated: June 10, 2026</p>
+<p class="updated">Last updated: June 19, 2026</p>
 
 <p>PhysioConnect ("we", "our", or "us") operates the PhysioConnect mobile and desktop
 application (the "App"). This page explains what information we collect, why we collect
-it, and how we protect it.</p>
+it, and how we protect it. By using the App you agree to the practices described here.</p>
 
 <hr />
 
@@ -30,13 +34,16 @@ it, and how we protect it.</p>
 
 <h3>1a. Information you provide directly</h3>
 <ul>
-  <li><strong>Account information</strong> – name, email address, and password when you
-      register.</li>
+  <li><strong>Account information</strong> – name, email address, and password when you register.</li>
   <li><strong>Health and clinical data</strong> – physiotherapy session notes (SOAP notes),
-      appointment records, diagnosis information, and treatment plans entered by
-      doctors or patients.</li>
+      appointment records, diagnosis information, treatment plans, billing records, and
+      session statistics entered by doctors or patients. This is classified as
+      <em>sensitive health data</em> and is subject to the strongest protections
+      described in Section 5.</li>
   <li><strong>Profile information</strong> – profile photo, phone number, date of birth,
       clinic name, and specialisation (for healthcare providers).</li>
+  <li><strong>Expense and income records</strong> – financial data entered by doctors for
+      their own clinic management.</li>
 </ul>
 
 <h3>1b. Information collected automatically</h3>
@@ -44,11 +51,11 @@ it, and how we protect it.</p>
   <li><strong>Location</strong> – approximate or precise device location, collected only
       when you use the "Find a Doctor" or "Update My Location" features and only with
       your explicit permission. We do not track your location in the background.</li>
-  <li><strong>Device token</strong> – a Firebase Cloud Messaging (FCM) token used solely
-      to deliver push notifications about your appointments and clinical updates.</li>
-  <li><strong>Usage data</strong> – basic error and crash information to help us improve
-      the App. No analytics SDKs are embedded; this is limited to Supabase
-      server-side logs.</li>
+  <li><strong>Device push token</strong> – a Firebase Cloud Messaging (FCM) token used
+      solely to deliver push notifications about your appointments and clinical updates.
+      It is stored server-side and never shared with third parties.</li>
+  <li><strong>Usage and error data</strong> – basic server-side logs (Supabase) to
+      diagnose errors. No third-party analytics SDKs are embedded in the App.</li>
 </ul>
 
 <hr />
@@ -63,43 +70,52 @@ it, and how we protect it.</p>
       you choose "Update My Location").</li>
   <li>Generate PDF session reports and invoices at your request.</li>
   <li>Improve the App based on aggregated, anonymised usage patterns.</li>
+  <li>Comply with applicable legal obligations.</li>
 </ul>
 
 <hr />
 
 <h2>3. How We Store and Protect Your Data</h2>
-<p>All data is stored on <strong>Supabase</strong> (PostgreSQL), hosted on secure
-cloud infrastructure with encryption at rest and in transit (TLS 1.2+).
+<p>All data is stored on <strong>Supabase</strong> (PostgreSQL), hosted on AWS
+infrastructure in the <strong>eu-central-1 (Frankfurt)</strong> region by default.
+Data is encrypted at rest (AES-256) and in transit (TLS 1.2+).
 Access to health records is enforced by Row-Level Security (RLS) policies —
-each user can only read and write their own records.</p>
+each user can only read and write their own records. Doctors can only access
+records belonging to their assigned patients.</p>
 <p>We do not sell, rent, or share your personal or health data with third parties
 for marketing purposes.</p>
 
 <hr />
 
 <h2>4. Third-Party Services</h2>
-<table style="width:100%; border-collapse:collapse;">
-  <tr style="background:#f5f5f5;">
-    <th style="text-align:left; padding:8px; border:1px solid #e0e0e0;">Service</th>
-    <th style="text-align:left; padding:8px; border:1px solid #e0e0e0;">Purpose</th>
-    <th style="text-align:left; padding:8px; border:1px solid #e0e0e0;">Privacy Policy</th>
+<table>
+  <tr>
+    <th>Service</th>
+    <th>Purpose</th>
+    <th>Data shared</th>
+    <th>Privacy policy</th>
   </tr>
   <tr>
-    <td style="padding:8px; border:1px solid #e0e0e0;">Supabase</td>
-    <td style="padding:8px; border:1px solid #e0e0e0;">Database, authentication, file storage</td>
-    <td style="padding:8px; border:1px solid #e0e0e0;"><a href="https://supabase.com/privacy">supabase.com/privacy</a></td>
+    <td>Supabase (AWS eu-central-1)</td>
+    <td>Database, authentication, file storage</td>
+    <td>All user and health data</td>
+    <td><a href="https://supabase.com/privacy">supabase.com/privacy</a></td>
   </tr>
   <tr>
-    <td style="padding:8px; border:1px solid #e0e0e0;">Firebase (Google)</td>
-    <td style="padding:8px; border:1px solid #e0e0e0;">Push notification delivery (FCM)</td>
-    <td style="padding:8px; border:1px solid #e0e0e0;"><a href="https://policies.google.com/privacy">policies.google.com/privacy</a></td>
+    <td>Firebase / Google Cloud (FCM)</td>
+    <td>Push notification delivery</td>
+    <td>Device push token only</td>
+    <td><a href="https://policies.google.com/privacy">policies.google.com/privacy</a></td>
   </tr>
   <tr>
-    <td style="padding:8px; border:1px solid #e0e0e0;">OpenStreetMap</td>
-    <td style="padding:8px; border:1px solid #e0e0e0;">Map tiles for "Find a Doctor" feature</td>
-    <td style="padding:8px; border:1px solid #e0e0e0;"><a href="https://osmfoundation.org/wiki/Privacy_Policy">osmfoundation.org</a></td>
+    <td>OpenStreetMap</td>
+    <td>Map tiles for "Find a Doctor"</td>
+    <td>Tile requests (no personal data)</td>
+    <td><a href="https://osmfoundation.org/wiki/Privacy_Policy">osmfoundation.org</a></td>
   </tr>
 </table>
+<p>No advertising networks, social-media SDKs, or cross-app tracking frameworks
+are embedded in the App. We do not use your data for targeted advertising.</p>
 
 <hr />
 
@@ -107,53 +123,94 @@ for marketing purposes.</p>
 <p>PhysioConnect handles health-related information. We treat this data as
 sensitive personal information and apply the following protections:</p>
 <ul>
-  <li>Health records are accessible only to the patient and their assigned
-      physiotherapist(s).</li>
+  <li>Health records (SOAP notes, diagnoses, session records) are accessible
+      only to the patient and their explicitly assigned physiotherapist(s).</li>
+  <li>Polyclinic administrators can view aggregate session counts but cannot
+      read individual clinical notes.</li>
   <li>We do not disclose health data to any third party without your explicit
-      written consent, except where required by law.</li>
-  <li>Clinical notes and SOAP records are never used for advertising or
-      profiling purposes.</li>
+      written consent, except where required by applicable law.</li>
+  <li>Clinical notes and SOAP records are never used for advertising,
+      profiling, or any purpose other than direct patient care.</li>
+  <li>Apple Health / Google Fit integration: the App does not read from or
+      write to Apple HealthKit, Google Fit, or any on-device health store.</li>
 </ul>
 
 <hr />
 
-<h2>6. Data Retention</h2>
-<p>We retain your data for as long as your account is active. You may request
-deletion of your account and all associated data at any time by using the
-"Delete My Account" option in the App or by contacting us at the email below.
-Deletion is permanent and cannot be undone.</p>
+<h2>6. Data Retention and Deletion</h2>
+<p>We retain your data for as long as your account is active.
+You may request deletion of your account and all associated data at any time
+by using the <strong>"Delete My Account"</strong> option in the App
+(available in your Profile or Account settings) or by contacting us at the
+email below. Deletion is permanent and processed within 30 days. Certain
+records may be retained longer if required by applicable healthcare regulations
+or for legal compliance; we will inform you of any such retention.</p>
 
 <hr />
 
-<h2>7. Children's Privacy</h2>
+<h2>7. Applicable Law and Compliance</h2>
+<p>We are committed to complying with applicable data protection and health-data
+laws in the jurisdictions where the App is used. Where the General Data
+Protection Regulation (GDPR) or similar regional law applies, you have the
+rights described in Section 9. If you use the App in a jurisdiction with
+specific health-data regulations (e.g., HIPAA in the United States), please
+contact us to discuss data processing agreements before using the App for
+regulated patient data.</p>
+
+<hr />
+
+<h2>8. Children's Privacy</h2>
 <p>The App is intended for use by healthcare professionals and adult patients.
 We do not knowingly collect personal information from children under 13
-(or the applicable age of digital consent in your country).</p>
+(or the applicable age of digital consent in your country). If you believe a
+child has provided us with personal data, please contact us and we will delete
+it promptly.</p>
 
 <hr />
 
-<h2>8. Your Rights</h2>
+<h2>9. Your Rights</h2>
 <p>Depending on your location, you may have the right to:</p>
 <ul>
-  <li>Access the personal data we hold about you.</li>
-  <li>Correct inaccurate data.</li>
-  <li>Request deletion of your data ("right to be forgotten").</li>
-  <li>Object to or restrict certain processing activities.</li>
-  <li>Data portability (receive your data in a machine-readable format).</li>
+  <li><strong>Access</strong> – request a copy of the personal data we hold about you.</li>
+  <li><strong>Correction</strong> – correct inaccurate or incomplete data.</li>
+  <li><strong>Deletion</strong> – request that we delete your data ("right to be forgotten").</li>
+  <li><strong>Restriction</strong> – object to or restrict certain processing activities.</li>
+  <li><strong>Portability</strong> – receive your data in a machine-readable format.</li>
+  <li><strong>Withdraw consent</strong> – where processing is based on consent, withdraw
+      it at any time without affecting prior lawful processing.</li>
 </ul>
-<p>To exercise any of these rights, contact us at <a href="mailto:jihadzhour@gmail.com">jihadzhour@gmail.com</a>.</p>
+<p>To exercise any of these rights, contact us at
+<a href="mailto:jihadzhour@gmail.com">jihadzhour@gmail.com</a>.
+We will respond within 30 days.</p>
 
 <hr />
 
-<h2>9. Changes to This Policy</h2>
+<h2>10. Platform-Specific Notices</h2>
+<h3>Apple App Store (iOS / iPadOS)</h3>
+<p>The iOS version of PhysioConnect uses standard OS-level encryption (TLS/HTTPS)
+for all network communication. It does not implement proprietary encryption
+algorithms subject to export-control classification. The App does not use
+Apple's App Tracking Transparency framework because it contains no
+cross-app tracking or advertising SDKs.</p>
+
+<h3>Google Play (Android)</h3>
+<p>The Android version uses Firebase Cloud Messaging for push notifications.
+The FCM token (a device identifier) is sent to our servers solely for
+notification delivery and is not shared with any other party. Location
+access is requested at runtime and only when you actively use a
+location-dependent feature.</p>
+
+<hr />
+
+<h2>11. Changes to This Policy</h2>
 <p>We may update this policy from time to time. We will notify you of significant
 changes via an in-app notification or email. The "Last updated" date at the top
 of this page always reflects the most recent revision.</p>
 
 <hr />
 
-<h2>10. Contact Us</h2>
-<p>If you have questions about this privacy policy or your data, contact us at:<br />
+<h2>12. Contact Us</h2>
+<p>Questions about this privacy policy or your data:<br />
 <a href="mailto:jihadzhour@gmail.com">jihadzhour@gmail.com</a></p>
 
 </body>
